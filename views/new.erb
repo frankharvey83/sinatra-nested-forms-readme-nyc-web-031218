@@ -1,0 +1,67 @@
+<!-- plan what you want your params to look like  -->
+<!-- params = {
+  "student" => {
+    "name" => "Joe",
+    "grade" => "9",
+    "course" => {
+      "name" => "US History",
+      "topic" => "History"
+    }
+  }
+} -->
+<!-- HOW WOULD WE BUILD THIS WITH RUBY?
+my_hash = {}
+my_hash["student"] = {}
+my_hash["student"]["name"] = "Joe"
+my_hash["student"]["course"] = {}
+my_hash["student"]["course"]["name"] = "US History"
+my_hash["student"]["course"]["topic"] = "History" -->
+
+<!-- my_hash
+  => {"student"=>{"name"=>"Joe", "course"=>{"name"=>"US History", "topic"=>"History"}}} -->
+<!-- HOW WOULD WE HANDLE TWO OR MORE COURSES? -->
+<!-- params = {
+  "student" => {
+    "name" => "Vic",
+    "grade" => "12",
+    "courses" => [
+      {
+        "name" => "AP US History",
+        "topic" => "History"
+      },
+      {
+        "name" => "AP Human Geography",
+        "topic" => "History"
+      }
+    ]
+  }
+} -->
+
+<!-- ```ruby
+my_hash = {}
+my_hash["student"] = {}
+my_hash["student"]["name"] = "Joe"
+my_hash["student"]["courses"] = []
+my_hash["student"]["courses"][0] = { "name" => "AP US History", "topic" => "History"}
+my_hash["student"]["courses"][1] = { "name" => "AP Human Geography", "topic" => "History"}
+```
+
+To access the name of the first course, you would do something like:
+
+```ruby
+my_hash["student"]["courses"][0]["name"]
+  => "AP US History"
+``` -->
+
+<form action="/student" method="post">
+  Student Name: <input type="text" name="student[name]">
+  Student Grade: <input type="text" name="student[grade]">
+  Course Name: <input type="text" name="student[courses][][name]">
+  Course Topic: <input type="text" name="student[courses][][topic]">
+  Course Name: <input type="text" name="student[courses][][name]">
+  Course Topic: <input type="text" name="student[courses][][topic]">
+  <input type="submit">
+</form>
+ERB makes it even easier on us. Instead of manually indexing each entry, we can use an empty array (`[]`) in our form view, and ERB will automagically index the array for us, turning `my_hash["student"]["courses"][0]["name"]` into `student[courses][][name]`. The `[]` is some ERB magic that we just need to accept and use. It saves us time and simplifies our code!
+
+ <!-- This creates a key called `courses` inside of the `student` hash in `params`. The `courses` key will store an array of hashes, each containing course details. -->

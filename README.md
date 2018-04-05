@@ -75,7 +75,7 @@ Here, exactly like with our `Student` class, we have an `attr_reader` for `name`
 
 ## Creating the Form
 
-The first thing we need is to create the form. For later use in the controller, we'll call this file `new.erb`. 
+The first thing we need is to create the form. For later use in the controller, we'll call this file `new.erb`.
 
 Before we dive into the HTML, let's think about how we want to structure the data our controller action will receive. Typically, if we were just doing student information, we would expect the `params` hash to look something like this:
 
@@ -173,17 +173,17 @@ In this form, a given `course`'s `name` value is stored in `student[course][name
 We need to once again restructure how we want to store data in the `params` hash. To allow for multiple courses, the `courses` key should store an array of nested hashes:
 
 ```ruby
-params = { 
+params = {
   "student" => {
     "name" => "Vic",
     "grade" => "12",
     "courses" => [
       {
-        "name" => "AP US History", 
+        "name" => "AP US History",
         "topic" => "History"
-      }, 
+      },
       {
-        "name" => "AP Human Geography", 
+        "name" => "AP Human Geography",
         "topic" => "History"
       }
     ]
@@ -288,13 +288,13 @@ In this controller action, we first create a new `Student` using the info stored
 Then we iterate over `params[:student][:courses]`, which is an array containing a series of hashes that each store individual course information:
 
 ```ruby
-[ 
+[
   0 => {
-    "name" => "AP US History", 
+    "name" => "AP US History",
     "topic" => "History"
-  }, 
+  },
   1 => {
-    "name" => "AP Human Geography", 
+    "name" => "AP Human Geography",
     "topic" => "History"
   }
 ]
